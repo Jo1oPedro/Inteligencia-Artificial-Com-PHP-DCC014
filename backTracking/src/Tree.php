@@ -15,7 +15,9 @@ class Tree {
     {
         $currentNode = $this->root; 
         do {
-            $this->root->getRule();
+            $currentNodeRule = $currentNode->getRule();
+            $this->rules($currentNodeRule, $currentNode);
+            $this->root->setRule(++$currentNodeRule);
         } while(!$this->allSumsEquals15($currentNode->getMatrix()));
     }
 
@@ -80,4 +82,18 @@ class Tree {
         }
     }
 
+    public function rules(int $rule, Node $currentNode) 
+    {
+        switch($rule) {
+            case 1:
+                $matrix = $currentNode->getMatrix();
+                $line = $currentNode->lastInsertedLine;
+                $column = $currentNode->lastInsertedColumn;
+                if($column == 0 && $line == 1) {
+                    $line = 3;
+                    $column = 3;
+                }
+                break;
+        }
+    }
 }
