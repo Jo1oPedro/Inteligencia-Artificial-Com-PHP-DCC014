@@ -29,3 +29,11 @@ foreach($matrix as $key => $item) {
 }
 
 $node2->setMatrix($matrix);
+
+$matrix = $node2->getMatrix();
+
+print_r($matrix);
+
+$matrix[2][2] = 1233;
+
+print_r($node2->getMatrix());
