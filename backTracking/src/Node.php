@@ -10,6 +10,9 @@ class Node {
     private ?Node $previous = null;
     private ?Node $next = null;
     private mixed $matrix;
+    private int $rule = 1;
+    private int $lastInsertedLine = 0;
+    private int $lastInsertedColumn = 0;
 
     public function __construct()
     {
@@ -19,7 +22,7 @@ class Node {
         }
     }
 
-    public function setPrevious(Node &$node = null): void 
+    public function setPrevious(Node &$node): void 
     {
         $this->previous = $node;
     }
@@ -53,4 +56,33 @@ class Node {
         return $this->matrix;
     }
 
+    public function setRule(int $rule): void
+    {
+        $this->rule = $rule;
+    }
+
+    public function getRule(): int 
+    {
+        return $this->rule;
+    }
+
+    public function setLastInsertedLine(int $line): void
+    {
+        $this->lastInsertedLine = $line;
+    }
+
+    public function getLastInsertedLine(int $line): int
+    {
+        return $this->lastInsertedLine;
+    }
+
+    public function setLastInsertedColumn(int $column): void
+    {
+        $this->lastInsertedColumn = $column;
+    }
+
+    public function getLastInsertedColumn(int $column): int
+    {
+        return $this->lastInsertedColumn;
+    }
 }
