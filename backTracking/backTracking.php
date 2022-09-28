@@ -8,6 +8,26 @@ use src\Node;
 $arvore = new Tree();
 $node = new Node();
 
+$arvore->backtracking();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 //$arvore->dale();
 $matrix = new SplFixedArray(3);
 foreach($matrix as $key => $item) {
@@ -37,3 +57,4 @@ print_r($matrix);
 $matrix[2][2] = 1233;
 
 print_r($node2->getMatrix());
+*/
