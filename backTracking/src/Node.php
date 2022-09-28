@@ -3,6 +3,7 @@
 namespace src;
 
 use SplFixedArray;
+use SplQueue;
 
 class Node {
 
@@ -14,6 +15,7 @@ class Node {
     private int $lastInsertedLine = 0;
     private int $lastInsertedColumn = 0;
     private mixed $alreadyInserted;
+    private mixed $atLeast6;
 
     public function __construct()
     {
@@ -22,6 +24,7 @@ class Node {
         foreach($this->matrix as $key => $array) {
             $this->matrix[$key] = new SplFixedArray(3);
         }
+        //$this->atLeast6 = new SplFixedArray(8);
     }
 
     /**
@@ -103,7 +106,7 @@ class Node {
     /**
      * Retorna a ultima linha em que um valor for inserido na matriz
      */
-    public function getLastInsertedLine(int $line): int
+    public function getLastInsertedLine(): int
     {
         return $this->lastInsertedLine;
     }
@@ -119,7 +122,7 @@ class Node {
     /**
      * Retorna a ultima coluna em que um valor foi inserido na matriz
      */
-    public function getLastInsertedColumn(int $column): int
+    public function getLastInsertedColumn(): int
     {
         return $this->lastInsertedColumn;
     }
