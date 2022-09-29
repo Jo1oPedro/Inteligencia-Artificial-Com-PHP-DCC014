@@ -15,7 +15,8 @@ class Node {
     private int $lastInsertedLine = 0;
     private int $lastInsertedColumn = 0;
     private mixed $alreadyInserted;
-    private mixed $atLeast6;
+    private int $numberToInsert = 1;
+    //private mixed $atLeast6;
 
     public function __construct()
     {
@@ -45,8 +46,9 @@ class Node {
 
     /**
      * Define o proximo nó
+     * @param null|Node $node
      */
-    public function setNext(Node &$node): void 
+    public function setNext(Node &$node = null): void 
     {
         $this->next = $node;
     }
@@ -54,7 +56,7 @@ class Node {
     /**
      * Retorna o proximo nó
      */
-    public function getNext(): Node
+    public function getNext(): ?Node
     {
         return $this->next;
     }
@@ -143,5 +145,22 @@ class Node {
     public function getAlreadyInserted(): mixed
     {
         return $this->alreadyInserted;
+    }
+
+    public function setNumberToInsert(int $numberToInsert): void 
+    {
+        $this->numberToInsert = $numberToInsert;
+    }
+
+    public function getNumberToInsert(): int 
+    {
+        return $this->numberToInsert;
+    }
+
+    public function newNode(Node $previousNode): void
+    { 
+        //$this->setAlreadyInserted($this->getPrevious()->getAlreadyInserted());
+        $this->setMatrix($this->getPrevious()->getMatrix());
+        $this->numberToInsert = ($previousNode->getRule() >= 10) ? $previousNode->getNumberToInsert() + 1 : $previousNode->getNumberToInsert();
     }
 }
