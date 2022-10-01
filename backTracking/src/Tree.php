@@ -29,41 +29,34 @@ class Tree {
         $allSumsEquals15 = 0;
         $contadora = 0;
         do {
+            //${"newNode" . "$contadora"} = "";
             $this->rules($currentNode);
             //$this->printMatrix($currentNode->getMatrix());
             $currentNode->setRule($currentNode->getRule()+1);
             $allSumsEquals15 = $this->allSumsEquals15($currentNode->getMatrix());
             if(($allSumsEquals15 == 2) || (!$allSumsEquals15)) {
-                if($contadora == 1) {
+                /*if($contadora == 1) {
                     echo "dale" . PHP_EOL;
                     $this->printMatrix($currentNode->getMatrix());
                     echo "dale2" . PHP_EOL;
-                }
-                $newNode = new Node();
-                if($contadora == 1) {
-                    echo "dale" . PHP_EOL;
-                    $this->printMatrix($currentNode->getMatrix());
-                    echo "dale2" . PHP_EOL;
-                    die();
-                }
+                }*/
+                ${"newNode" . "$contadora"} = new Node();
                 if($currentNode->getRule() >= 10) {
-                    $newNode = &$currentNode->getPrevious();
+                    ${"newNode" . "contadora"} = &$currentNode->getPrevious();
                     $currentNode = null;
                 } else if($allSumsEquals15 == 2) {
-                    $currentNode->setNext($newNode);
-                    $newNode->setPrevious($currentNode);
-                    $newNode->setMatrix($currentNode->getMatrix());
-                    $newNode->setNumberToInsert($currentNode->getNumberToInsert() + 1);
+                    $currentNode->setNext(${"newNode" . "$contadora"});
+                    ${"newNode" . "$contadora"}->setPrevious($currentNode);
+                    ${"newNode" . "$contadora"}->setMatrix($currentNode->getMatrix());
+                    ${"newNode" . "$contadora"}->setNumberToInsert($currentNode->getNumberToInsert() + 1);
                 } else {
-                    $this->printMatrix($currentNode->getMatrix());
-                    die();
                     $previousNode = $currentNode->getPrevious();
-                    $previousNode->setNext($newNode);
-                    $newNode->setNumberToInsert($currentNode->getNumberToInsert());
-                    $newNode->setMatrix($previousNode->getMatrix());
+                    $previousNode->setNext(${"newNode" . "$contadora"});
+                    ${"newNode" . "$contadora"}->setNumberToInsert($currentNode->getNumberToInsert());
+                    ${"newNode" . "$contadora"}->setMatrix($previousNode->getMatrix());
                     $currentNode = null;
                 }
-                $currentNode = &$newNode;
+                $currentNode = &${"newNode" . "$contadora"};
             }
             $contadora++;
         } while(($allSumsEquals15 == 2) || (!$allSumsEquals15));
