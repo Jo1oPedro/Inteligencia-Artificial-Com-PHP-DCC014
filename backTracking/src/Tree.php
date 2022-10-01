@@ -5,7 +5,8 @@ namespace src;
 class Tree {
 
     private $root;
-    
+    private $contadoraGlobal = 0;
+
     public function __construct(/*?Node &$node = null*/)
     {
         //$this->root = $node;
@@ -22,41 +23,65 @@ class Tree {
         $currentNode = new Node();
         $this->root->setNext($currentNode);
         $currentNode->setPrevious($this->root); 
-        //$currentNode->setAlreadyInserted($this->root->getAlreadyInserted());
-        //$currentNode->setLastInsertedColumn($this->root->getLastInsertedColumn());
-        //$currentNode->setLastInsertedLine($this->root->getLastInsertedLine());
-        //$currentNode->setMatrix($this->root->getMatrix());
         $allSumsEquals15 = 0;
         $contadora = 0;
         do {
-            //${"newNode" . "$contadora"} = "";
             $this->rules($currentNode);
-            //$this->printMatrix($currentNode->getMatrix());
+            $this->contadoraGlobal = $contadora;
+            echo $contadora .PHP_EOL;
+            $this->printMatrix($currentNode->getMatrix());
             $currentNode->setRule($currentNode->getRule()+1);
             $allSumsEquals15 = $this->allSumsEquals15($currentNode->getMatrix());
             if(($allSumsEquals15 == 2) || (!$allSumsEquals15)) {
-                /*if($contadora == 1) {
-                    echo "dale" . PHP_EOL;
-                    $this->printMatrix($currentNode->getMatrix());
-                    echo "dale2" . PHP_EOL;
-                }*/
                 ${"newNode" . "$contadora"} = new Node();
-                if($currentNode->getRule() >= 10) {
-                    ${"newNode" . "contadora"} = &$currentNode->getPrevious();
-                    $currentNode = null;
+                if($currentNode->getRule() >= 10 /*&& $allSumsEquals15 != 2*/) {
+                    if($contadora == 66) {
+                        echo "dale";
+                        //die();
+                    }
+                    if($contadora == 114) {
+                        echo "dale2";
+                        die();
+                    }
+                    ${"newNode" . "$contadora"} = $currentNode->getPrevious();
+                    ${"newNode" . "$contadora"}->setMatrix(${"newNode" . "$contadora"}->getPrevious()->getMatrix());
                 } else if($allSumsEquals15 == 2) {
+                    if($contadora == 66) {
+                        echo "dale3";
+                        //die();
+                    }
+                    if($contadora == 114) {
+                        echo "dale4";
+                        die();
+                    }
                     $currentNode->setNext(${"newNode" . "$contadora"});
                     ${"newNode" . "$contadora"}->setPrevious($currentNode);
                     ${"newNode" . "$contadora"}->setMatrix($currentNode->getMatrix());
                     ${"newNode" . "$contadora"}->setNumberToInsert($currentNode->getNumberToInsert() + 1);
+                    
                 } else {
+                    if($contadora == 66) {
+                        echo "dale5";
+                        //die();
+                    }
+                    if($contadora == 114) {
+                        echo "dale6";
+                        die();
+                    }
                     $previousNode = $currentNode->getPrevious();
                     $previousNode->setNext(${"newNode" . "$contadora"});
+                    ${"newNode" . "$contadora"}->setPrevious($previousNode);
                     ${"newNode" . "$contadora"}->setNumberToInsert($currentNode->getNumberToInsert());
                     ${"newNode" . "$contadora"}->setMatrix($previousNode->getMatrix());
+                    ${"newNode" . "$contadora"}->setRule($currentNode->getRule());
                     $currentNode = null;
+                    if($contadora == 65) {
+                        echo "dale3" . PHP_EOL;
+                        $this->printMatrix(${"newNode" . "$contadora"}->getMatrix());
+                        //die();
+                    }
                 }
-                $currentNode = &${"newNode" . "$contadora"};
+                $currentNode = ${"newNode" . "$contadora"};
             }
             $contadora++;
         } while(($allSumsEquals15 == 2) || (!$allSumsEquals15));
@@ -124,10 +149,15 @@ class Tree {
         foreach($matrix as $key => $array) {
             $contadora = 0;
             foreach($array as $key2 => $element) {
-                if($element) {
+                if($matrix[$key2][$key]) {
                     $numberOfElementsColumn++;
                     $contadora += $matrix[$key2][$key];
                 }
+            }
+            if($this->contadoraGlobal == 198) {
+                //echo $numberOfElementsColumn . PHP_EOL;
+                //echo $contadora . PHP_EOL;
+                //die();
             }
             if($numberOfElementsColumn < 3) {
                 if($numberOfElementsColumn == 2) {
@@ -174,7 +204,7 @@ class Tree {
         $contadora = 0;
         $column = 2;
         for($contadora = 0; $contadora < 3; $contadora--) {
-            if($matrix[$key][$key]) {
+            if($matrix[$key][$column]) {
                 $numberOfElementsDiagonal++;
                 $contadora += $matrix[$contadora][$column--]; 
             }
@@ -245,6 +275,7 @@ class Tree {
                 }
                 break;
             case 7:
+                echo "DALE 123" . PHP_EOL;
                 if(!$currentNode->getMatrix()[2][0]) {
                     $currentNode->getMatrix()[2][0] = $currentNode->getNumberToInsert();
                 } else {
@@ -265,8 +296,12 @@ class Tree {
                     $currentNode->getMatrix()[2][2] = $currentNode->getNumberToInsert();
                 } else {
                     $currentNode->setRule($currentNode->getRule()+1);
-                    $this->rules($currentNode);
                 }
+                echo "DALE 123" . PHP_EOL;
+                /*else {
+                    $currentNode->setRule($currentNode->getRule()+1);
+                    $this->rules($currentNode);
+                }*/
                 break;
         }
     }
