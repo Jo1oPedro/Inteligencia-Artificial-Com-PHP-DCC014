@@ -3,7 +3,6 @@
 namespace src;
 
 use SplFixedArray;
-use SplQueue;
 
 class Node {
 
@@ -12,11 +11,7 @@ class Node {
     private ?Node $next = null;
     private mixed $matrix;
     private int $rule = 1;
-    private int $lastInsertedLine = 0;
-    private int $lastInsertedColumn = 0;
-    private mixed $alreadyInserted;
     private int $numberToInsert = 1;
-    //private mixed $atLeast6;
 
     public function __construct()
     {
@@ -25,7 +20,6 @@ class Node {
         foreach($this->matrix as $key => $array) {
             $this->matrix[$key] = new SplFixedArray(3);
         }
-        //$this->atLeast6 = new SplFixedArray(8);
     }
 
     /**
@@ -97,56 +91,6 @@ class Node {
         return $this->rule;
     }
 
-    /**
-     * Define a ultima linha em que um valor for inserido na matriz
-     */
-    public function setLastInsertedLine(int $line): void
-    {
-        $this->lastInsertedLine = $line;
-    }
-
-    /**
-     * Retorna a ultima linha em que um valor for inserido na matriz
-     */
-    public function getLastInsertedLine(): int
-    {
-        return $this->lastInsertedLine;
-    }
-
-    /**
-     * Define a ultima coluna em que um valor foi inserido na matriz
-     */
-    public function setLastInsertedColumn(int $column): void
-    {
-        $this->lastInsertedColumn = $column;
-    }
-
-    /**
-     * Retorna a ultima coluna em que um valor foi inserido na matriz
-     */
-    public function getLastInsertedColumn(): int
-    {
-        return $this->lastInsertedColumn;
-    }
-
-    /**
-     * Seta no vetor do node quais valores já foram inseridos(1, 2, 3, ...)
-     */
-    public function setAlreadyInserted(mixed $alreadyInserted): void
-    {
-        foreach($alreadyInserted as $key => $element) {
-            $this->alreadyInserted[$key] = $element;
-        }
-    }
-
-    /**
-     * Retorna o vetor contendo quais valores já foram inseridos nesse nó
-     */
-    public function getAlreadyInserted(): mixed
-    {
-        return $this->alreadyInserted;
-    }
-
     public function setNumberToInsert(int $numberToInsert): void 
     {
         $this->numberToInsert = $numberToInsert;
@@ -157,10 +101,4 @@ class Node {
         return $this->numberToInsert;
     }
 
-    /*public function newNode(Node $previousNode): void
-    { 
-        //$this->setAlreadyInserted($this->getPrevious()->getAlreadyInserted());
-        $this->setMatrix($this->getPrevious()->getMatrix());
-        $this->numberToInsert = ($previousNode->getRule() >= 10) ? $previousNode->getNumberToInsert() + 1 : $previousNode->getNumberToInsert();
-    }*/
 }
