@@ -102,6 +102,7 @@ class Tree {
             }
             $contadora++;
         } while(($allSumsEquals15 == 2) || (!$allSumsEquals15));
+        echo "Quadrado mágico concluido!" . PHP_EOL;
     }
 
     private function allSumsEquals15(mixed $matrix): int 
@@ -176,9 +177,10 @@ class Tree {
     private function sumAllColumns(mixed $matrix): int 
     {
         $notFullFieldYet = false;
-        $numberOfElementsColumn = 0;
+        //$numberOfElementsColumn = 0;
         foreach($matrix as $key => $array) {
             $contadora = 0;
+            $numberOfElementsColumn = 0;
             foreach($array as $key2 => $element) {
                 if($matrix[$key2][$key]) {
                     $numberOfElementsColumn++;
@@ -187,6 +189,7 @@ class Tree {
             }
             if($this->contadoraGlobal == 334) {
                 echo "Contadora: " . $contadora . PHP_EOL;
+                echo "número de elementos na coluna: " . $numberOfElementsColumn . PHP_EOL;
             }
             if($this->contadoraGlobal == 170) {
                 echo $numberOfElementsColumn . PHP_EOL;
@@ -201,9 +204,15 @@ class Tree {
                 }
                 $numberOfElementsColumn = 0;
                 $notFullFieldYet = true;
+                echo "número de elementos na coluna: " . $numberOfElementsColumn . PHP_EOL;
                 continue;
             }
             if($contadora != 15) {
+                if($this->contadoraGlobal == 334) {
+                    echo "Contadora: " . $contadora . PHP_EOL;
+                    echo "Número de elementos na coluna: " . $numberOfElementsColumn . PHP_EOL;
+                    die();
+                }
                 return 0;
             }
         }
