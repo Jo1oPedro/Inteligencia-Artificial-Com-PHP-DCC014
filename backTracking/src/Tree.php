@@ -30,8 +30,12 @@ class Tree {
             $this->contadoraGlobal = $contadora;
             echo $contadora .PHP_EOL;
             $this->printMatrix($currentNode->getMatrix());
-            $currentNode->setRule($currentNode->getRule()+1);
+            //$currentNode->setRule($currentNode->getRule()+1);
             $allSumsEquals15 = $this->allSumsEquals15($currentNode->getMatrix());
+            if($contadora == 170) {
+                echo "dale -1";
+                //die();
+            }
             if(($allSumsEquals15 == 2) || (!$allSumsEquals15)) {
                 ${"newNode" . "$contadora"} = new Node();
                 if($currentNode->getRule() >= 10 /*&& $allSumsEquals15 != 2*/) {
@@ -39,10 +43,15 @@ class Tree {
                         echo "dale";
                         //die();
                     }
-                    if($contadora == 114) {
+                    if($contadora == 334) {
+                        echo "Tá na contadora: " . $contadora . PHP_EOL;
+                        $this->printMatrix($currentNode->getMatrix());
+                        echo $currentNode->getPrevious()->getRule() . PHP_EOL;
+                        echo $currentNode->getPrevious()->getNumberToInsert() . PHP_EOL;
                         echo "dale2";
                         die();
                     }
+                    $currentNode->setRule($currentNode->getRule()+1);
                     ${"newNode" . "$contadora"} = $currentNode->getPrevious();
                     ${"newNode" . "$contadora"}->setMatrix(${"newNode" . "$contadora"}->getPrevious()->getMatrix());
                 } else if($allSumsEquals15 == 2) {
@@ -50,10 +59,14 @@ class Tree {
                         echo "dale3";
                         //die();
                     }
-                    if($contadora == 114) {
-                        echo "dale4";
+                    if($contadora == 334) {
+                        echo "dale4" . PHP_EOL;
+                        $this->printMatrix($currentNode->getMatrix());
+                        echo $currentNode->getRule() . PHP_EOL;
+                        echo $currentNode->getNumberToInsert() . PHP_EOL;
                         die();
                     }
+                    $currentNode->setRule($currentNode->getRule()+1);
                     $currentNode->setNext(${"newNode" . "$contadora"});
                     ${"newNode" . "$contadora"}->setPrevious($currentNode);
                     ${"newNode" . "$contadora"}->setMatrix($currentNode->getMatrix());
@@ -64,10 +77,14 @@ class Tree {
                         echo "dale5";
                         //die();
                     }
-                    if($contadora == 114) {
-                        echo "dale6";
+                    if($contadora == 334) {
+                        echo "dale6" . PHP_EOL;
+                        $this->printMatrix($currentNode->getMatrix());
+                        echo $currentNode->getRule() . PHP_EOL;
+                        echo $currentNode->getNumberToInsert() . PHP_EOL;
                         die();
                     }
+                    $currentNode->setRule($currentNode->getRule()+1);
                     $previousNode = $currentNode->getPrevious();
                     $previousNode->setNext(${"newNode" . "$contadora"});
                     ${"newNode" . "$contadora"}->setPrevious($previousNode);
@@ -97,20 +114,29 @@ class Tree {
         } else if(!$sumAllLines) {
             return 0;
         }
-
+        if($this->contadoraGlobal == 334) {
+            echo "Valor do sumAllLines: " . $sumAllLines . PHP_EOL;
+        }
         $sumAllColumns = $this->sumAllColumns($matrix);
+        if($this->contadoraGlobal == 334) {
+            echo "Valor do sumAllColumns: " . $sumAllColumns . PHP_EOL;
+        }
         if($sumAllColumns == 2) {
             $notCompletedYet = true;
         } else if(!$sumAllColumns) {
             return 0;
         }
-
+        if($this->contadoraGlobal == 170) {
+            echo "dale 10" . PHP_EOL;
+            //die();
+        }
         $sumAllDiagonals = $this->sumAllDiagonals($matrix);
         if($sumAllDiagonals == 2) {
             $notCompletedYet = true;
         } else if(!$sumAllDiagonals) {
             return 0;
         }
+        
         if($notCompletedYet) {
             return 2;
         }
@@ -123,6 +149,9 @@ class Tree {
         $notFullFieldYet = false;
         foreach($matrix as $array) {
             $numOfElements = $this->count($array);
+            if($this->contadoraGlobal == 170) {
+                //echo $numOfElements . PHP_EOL;
+            }
             if($numOfElements == 2 || $numOfElements == 3) {
                 $contadora = 0;
                 foreach($array as $element) {
@@ -130,6 +159,8 @@ class Tree {
                 }
                 if(($numOfElements == 3 && $contadora != 15) || ($numOfElements == 2 && $contadora < 6)) {
                     return 0;
+                } else if($numOfElements == 2 && $contadora >= 6) {
+                    $notFullFieldYet = true;
                 }
             } else {
                 $notFullFieldYet = true;
@@ -154,8 +185,11 @@ class Tree {
                     $contadora += $matrix[$key2][$key];
                 }
             }
-            if($this->contadoraGlobal == 198) {
-                //echo $numberOfElementsColumn . PHP_EOL;
+            if($this->contadoraGlobal == 334) {
+                echo "Contadora: " . $contadora . PHP_EOL;
+            }
+            if($this->contadoraGlobal == 170) {
+                echo $numberOfElementsColumn . PHP_EOL;
                 //echo $contadora . PHP_EOL;
                 //die();
             }
@@ -203,13 +237,15 @@ class Tree {
         $numberOfElementsDiagonal = 0;
         $contadora = 0;
         $column = 2;
-        for($contadora = 0; $contadora < 3; $contadora--) {
+        for($key = 0; $key < 3; $key++) {
             if($matrix[$key][$column]) {
                 $numberOfElementsDiagonal++;
-                $contadora += $matrix[$contadora][$column--]; 
+                $contadora += $matrix[$key][$column]; 
             }
+            $column--;
         }   
-        if(!$numberOfElementsDiagonal == 3) {
+
+        if(!($numberOfElementsDiagonal == 3)) {
             if($numberOfElementsDiagonal == 2) {
                 if($contadora < 6) {
                     return 0;
