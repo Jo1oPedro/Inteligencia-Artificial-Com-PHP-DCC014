@@ -10,10 +10,10 @@ class Tree {
     {
         //$this->root = $node;
         $this->root = new Node();
-        $this->root->getMatrix()[0][0] = 1;
-        $this->root->setLastInsertedColumn(0);
-        $this->root->setLastInsertedLine(0);
-        $this->root->getAlreadyInserted()[0] = 1;
+        //$this->root->getMatrix()[0][0] = 1;
+        //$this->root->setLastInsertedColumn(0);
+        //$this->root->setLastInsertedLine(0);
+        //$this->root->getAlreadyInserted()[0] = 1;
         $this->root->setRule(2);
     }
 
@@ -25,51 +25,47 @@ class Tree {
         //$currentNode->setAlreadyInserted($this->root->getAlreadyInserted());
         //$currentNode->setLastInsertedColumn($this->root->getLastInsertedColumn());
         //$currentNode->setLastInsertedLine($this->root->getLastInsertedLine());
-        $currentNode->setMatrix($this->root->getMatrix());
+        //$currentNode->setMatrix($this->root->getMatrix());
         $allSumsEquals15 = 0;
+        $contadora = 0;
         do {
-            $newNodeFlag = true;
             $this->rules($currentNode);
-            $newNode = new Node();
-            if($currentNode->getRule() >= 10) {
-                if($this->allSumsEquals15($currentNode->getMatrix())) {
-                    return;
-                }
-                $previousNode = $currentNode->getPrevious();
-                $previousNode->setNext($newNode);
-                $newNode->
-                //$newNode //= &$previousNode;
-                //$newNode->setNumberToInsert($currentNode->getNumberToInsert());
-                $currentNode = null;
-                //$newNodeFlag = false;
-            } if($allSumsEquals15 == 2) {
-                echo "dale";
-                die();
-                $currentNode->setNext($newNode);
-                $newNode->setPrevious($currentNode);
-                $newNode->setRule($currentNode->getRule());
-                //$newNode->setRule($currentNode->getRule());
-            } else if(/*$currentNode->getRule() <= 9 ||*/ !$allSumsEquals15) {
-                $previousNode = $currentNode->getPrevious();
-                $previousNode->setNext($newNode);
-                $newNode->setRule($currentNode->getRule());
-                //$newNode->setRule($currentNode->getRule());
-                $currentNode = null;
-            }
-            $currentNode = &$newNode;
-            if($newNodeFlag) {
-                $currentNode->newNode($currentNode->getPrevious());
-            }
-            //$this->rules($currentNode);
+            //$this->printMatrix($currentNode->getMatrix());
+            $currentNode->setRule($currentNode->getRule()+1);
             $allSumsEquals15 = $this->allSumsEquals15($currentNode->getMatrix());
-            /*if(!$allSumsEquals15) {
+            if(($allSumsEquals15 == 2) || (!$allSumsEquals15)) {
+                if($contadora == 1) {
+                    echo "dale" . PHP_EOL;
+                    $this->printMatrix($currentNode->getMatrix());
+                    echo "dale2" . PHP_EOL;
+                }
                 $newNode = new Node();
-                $previousNode = $currentNode->getPrevious();
-                $previousNode->setNext($newNode);
-                $newNode->setPrevious($previousNode);
+                if($contadora == 1) {
+                    echo "dale" . PHP_EOL;
+                    $this->printMatrix($currentNode->getMatrix());
+                    echo "dale2" . PHP_EOL;
+                    die();
+                }
+                if($currentNode->getRule() >= 10) {
+                    $newNode = &$currentNode->getPrevious();
+                    $currentNode = null;
+                } else if($allSumsEquals15 == 2) {
+                    $currentNode->setNext($newNode);
+                    $newNode->setPrevious($currentNode);
+                    $newNode->setMatrix($currentNode->getMatrix());
+                    $newNode->setNumberToInsert($currentNode->getNumberToInsert() + 1);
+                } else {
+                    $this->printMatrix($currentNode->getMatrix());
+                    die();
+                    $previousNode = $currentNode->getPrevious();
+                    $previousNode->setNext($newNode);
+                    $newNode->setNumberToInsert($currentNode->getNumberToInsert());
+                    $newNode->setMatrix($previousNode->getMatrix());
+                    $currentNode = null;
+                }
                 $currentNode = &$newNode;
-                $currentNode->newNode($currentNode->getPrevious());
-            }*/
+            }
+            $contadora++;
         } while(($allSumsEquals15 == 2) || (!$allSumsEquals15));
     }
 
@@ -97,7 +93,6 @@ class Tree {
         } else if(!$sumAllDiagonals) {
             return 0;
         }
-
         if($notCompletedYet) {
             return 2;
         }
@@ -109,7 +104,7 @@ class Tree {
     {
         $notFullFieldYet = false;
         foreach($matrix as $array) {
-            $numOfElements = count($array);
+            $numOfElements = $this->count($array);
             if($numOfElements == 2 || $numOfElements == 3) {
                 $contadora = 0;
                 foreach($array as $element) {
@@ -171,7 +166,7 @@ class Tree {
                 $contadora += $matrix[$key][$key];
             }
         }
-        if(!$numberOfElementsDiagonal == 3) {
+        if(!($numberOfElementsDiagonal == 3)) {
             if($numberOfElementsDiagonal == 2) {
                 if($contadora < 6) {
                     return 0;
@@ -209,30 +204,77 @@ class Tree {
     {
         switch($currentNode->getRule()) {
             case 1:
-                $currentNode->setRule($currentNode->getRule()+1);
                 if(!$currentNode->getMatrix()[0][0]) {
                     $currentNode->getMatrix()[0][0] = $currentNode->getNumberToInsert();
                 } else {
+                    $currentNode->setRule($currentNode->getRule()+1);
                     $this->rules($currentNode);
                 }
-                $currentNode->setLastInsertedColumn(0);
-                $currentNode->setLastInsertedLine(0);
-                //$this->printMatrix($currentNode->getMatrix());
                 break;
             case 2:
-                $currentNode->setRule($currentNode->getRule()+1);
                 if(!$currentNode->getMatrix()[0][1]) {
                     $currentNode->getMatrix()[0][1] = $currentNode->getNumberToInsert();
                 } else {
+                    $currentNode->setRule($currentNode->getRule()+1);
                     $this->rules($currentNode);
                 }
-                $currentNode->setLastInsertedColumn(1);
-                $currentNode->setLastInsertedLine(0);
-                //$this->printMatrix($currentNode->getMatrix());
                 break;
             case 3:
-                //echo "dale";
-                die();
+                if(!$currentNode->getMatrix()[0][2]) {
+                    $currentNode->getMatrix()[0][2] = $currentNode->getNumberToInsert();
+                } else {
+                    $currentNode->setRule($currentNode->getRule()+1);
+                    $this->rules($currentNode);
+                }
+                break;
+            case 4:
+                if(!$currentNode->getMatrix()[1][0]) {
+                    $currentNode->getMatrix()[1][0] = $currentNode->getNumberToInsert();
+                } else {
+                    $currentNode->setRule($currentNode->getRule()+1);
+                    $this->rules($currentNode);
+                }
+                break;    
+            case 5:
+                if(!$currentNode->getMatrix()[1][1]) {
+                    $currentNode->getMatrix()[1][1] = $currentNode->getNumberToInsert();
+                } else {
+                    $currentNode->setRule($currentNode->getRule()+1);
+                    $this->rules($currentNode);
+                }
+                break;
+            case 6:
+                if(!$currentNode->getMatrix()[1][2]) {
+                    $currentNode->getMatrix()[1][2] = $currentNode->getNumberToInsert();
+                } else {
+                    $currentNode->setRule($currentNode->getRule()+1);
+                    $this->rules($currentNode);
+                }
+                break;
+            case 7:
+                if(!$currentNode->getMatrix()[2][0]) {
+                    $currentNode->getMatrix()[2][0] = $currentNode->getNumberToInsert();
+                } else {
+                    $currentNode->setRule($currentNode->getRule()+1);
+                    $this->rules($currentNode);
+                }
+                break;
+            case 8:
+                if(!$currentNode->getMatrix()[2][1]) {
+                    $currentNode->getMatrix()[2][1] = $currentNode->getNumberToInsert();
+                } else {
+                    $currentNode->setRule($currentNode->getRule()+1);
+                    $this->rules($currentNode);
+                }
+                break;
+            case 9:
+                if(!$currentNode->getMatrix()[2][2]) {
+                    $currentNode->getMatrix()[2][2] = $currentNode->getNumberToInsert();
+                } else {
+                    $currentNode->setRule($currentNode->getRule()+1);
+                    $this->rules($currentNode);
+                }
+                break;
         }
     }
 

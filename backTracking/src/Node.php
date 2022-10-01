@@ -157,10 +157,10 @@ class Node {
         return $this->numberToInsert;
     }
 
-    public function newNode(Node $previousNode): void
+    /*public function newNode(Node $previousNode): void
     { 
         //$this->setAlreadyInserted($this->getPrevious()->getAlreadyInserted());
         $this->setMatrix($this->getPrevious()->getMatrix());
         $this->numberToInsert = ($previousNode->getRule() >= 10) ? $previousNode->getNumberToInsert() + 1 : $previousNode->getNumberToInsert();
-    }
+    }*/
 }
