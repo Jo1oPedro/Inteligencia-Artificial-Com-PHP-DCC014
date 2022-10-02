@@ -15,7 +15,6 @@ class Node {
 
     public function __construct()
     {
-        $this->alreadyInserted = new SplFixedArray(9);
         $this->matrix = new SplFixedArray(3);
         foreach($this->matrix as $key => $array) {
             $this->matrix[$key] = new SplFixedArray(3);
