@@ -52,6 +52,7 @@ class Tree {
             }
             $contadora++;
         } while(($allSumsEquals15 == 2) || (!$allSumsEquals15));
+        $this->printMatrix($currentNode->getMatrix());
         echo "Quadrado mágico concluido!" . PHP_EOL;
     }
 
@@ -147,6 +148,7 @@ class Tree {
     {
         $contadora = 0;
         $numberOfElementsDiagonal = 0;
+        $return2Flag = false;
         foreach($matrix as $key => $array) {
             if($matrix[$key][$key]) {
                 $numberOfElementsDiagonal++;
@@ -159,10 +161,12 @@ class Tree {
                     return 0;
                 }
             }
-            return 2;
-        }
-        if($contadora != 15) {
-            return 0;
+            //return 2;
+            $return2Flag = true;
+        } else {
+            if($contadora != 15) {
+                return 0;
+            }
         }
         $numberOfElementsDiagonal = 0;
         $contadora = 0;
@@ -181,12 +185,13 @@ class Tree {
                     return 0;
                 }
             }
-            return 2;
+            $return2Flag = true;
+        } else {
+            if($contadora != 15) {
+                return 0;
+            }
         }
-        if($contadora != 15) {
-            return 0;
-        }
-        return 1;
+        return ($return2Flag) ? 2 : 1;
     }
 
     public function rules(Node &$currentNode): void 
