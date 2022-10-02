@@ -32,20 +32,22 @@ class Tree {
                 if($this->openNodes[0]->getMagicSquareCompleted()) {
                     break;
                 }
-                $this->contadoraGlobal++;
                 for($contadora = 1; $contadora < 10; $contadora++) {
                     ${"newNode" . "$contadoraName"} = new Node();
                     ${"newNode" . "$contadoraName"}->setRule($contadora);
-                    echo "Regra: " . ${"newNode" . "$contadoraName"}->getRule() . PHP_EOL;
+                    //echo "Regra: " . ${"newNode" . "$contadoraName"}->getRule() . PHP_EOL;
                     ${"newNode" . "$contadoraName"}->setMatrix($this->openNodes[0]->getMatrix());
-                    ${"newNode" . "$contadoraName"}->setNumberToInsert(/*$this->numberToInsert*/$this->openNodes[0]->getNumberToInsert()+1);
-                    $this->rules(${"newNode" . "$contadoraName"});
-                    if($this->contadoraGlobal == 2) {
-                        $this->printMatrix(${"newNode" . "$contadoraName"}->getMatrix());
+                    if($this->openNodes[0] != $this->root) {
+                        ${"newNode" . "$contadoraName"}->setNumberToInsert(/*$this->numberToInsert*/$this->openNodes[0]->getPrevious()->getNumberToInsert()+1);
+                    } else {
+                        ${"newNode" . "$contadoraName"}->setNumberToInsert(1);
                     }
+                    $this->rules(${"newNode" . "$contadoraName"});
                     $allSumsEquals15 = (${"newNode" . "$contadoraName"}->getInvalidNode()) ? 0 : $this->allSumsEquals15(${"newNode" . "$contadoraName"}->getMatrix());
                     //$allSumsEquals15 = $this->allSumsEquals15(${"newNode" . "$contadoraName"}->getMatrix());
                     if($allSumsEquals15) {
+                        $this->contadoraGlobal++;
+                        echo "Contadora global: " . $this->contadoraGlobal . PHP_EOL;  
                         $this->sonsCreated++;
                         $this->oldSons--;
                         if($allSumsEquals15 == 1) {
@@ -60,15 +62,14 @@ class Tree {
                 }
                 unset($this->openNodes[0]);
                 $this->openNodes = array_values($this->openNodes);
-                if($this->contadoraGlobal == 10) {
+                if($this->contadoraGlobal == 20) {
                     //die();
                     /*for($dale = 0; $dale < 9; $dale++) {
                         $this->printMatrix($this->openNodes[0]->getSon($dale)->getMatrix());
                     }*/
-                    echo count($this->openNodes);
-                    echo "INDOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" . PHP_EOL . PHP_EOL;
                     //die();
-                    foreach($this->openNodes as $openNode) {
+                    foreach($this->openNodes as $key => $openNode) {
+                        echo "Chave: " . $key . PHP_EOL;
                         $this->printMatrix($openNode->getMatrix());
                     }
                     die();
