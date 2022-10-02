@@ -5,12 +5,12 @@ namespace src;
 class Tree {
 
     private $root;
-    private $contadoraGlobal = 0;
+    //private $contadoraGlobal = 0;
 
     public function __construct()
     {
         $this->root = new Node();
-        $this->root->setRule(2);
+        //$this->root->setRule(2);
     }
 
     public function backtracking(): void
@@ -23,8 +23,8 @@ class Tree {
         do {
             
             $this->rules($currentNode);
-            $this->contadoraGlobal = $contadora;
-            $this->printMatrix($currentNode->getMatrix());
+            //$this->contadoraGlobal = $contadora;
+            //$this->printMatrix($currentNode->getMatrix());
             $allSumsEquals15 = $this->allSumsEquals15($currentNode->getMatrix());
             if(($allSumsEquals15 == 2) || (!$allSumsEquals15)) {
                 ${"newNode" . "$contadora"} = new Node();
@@ -38,7 +38,6 @@ class Tree {
                     ${"newNode" . "$contadora"}->setPrevious($currentNode);
                     ${"newNode" . "$contadora"}->setMatrix($currentNode->getMatrix());
                     ${"newNode" . "$contadora"}->setNumberToInsert($currentNode->getNumberToInsert() + 1);
-                    
                 } else {
                     $currentNode->setRule($currentNode->getRule()+1);
                     $previousNode = $currentNode->getPrevious();
