@@ -4,9 +4,9 @@
 
 | **Sumário** |
 |-------------|
-| [Objetivos do repositorio](#objetivos-do-repositorio) |
-| [Problema proposto para execução dos algoritmos](#problema-proposto-para-execucao-dos-algoritmos ) |
-| [Problema a ser solucionado](#algoritmos-atualmente-presentes-nesse-repositorio) |
+| [Objetivos do repositorio](#objetivos-do-repositório) |
+| [Problema proposto para execução dos algoritmos](#problema-proposto-para-execução-dos-algoritmos) |
+| [Problema a ser solucionado](#algoritmos-atualmente-presentes-nesse-repositório) |
 | [Como executar os algoritmos ](#como-executar-o-projeto-inicial) |
 
 ## Objetivos do repositório
