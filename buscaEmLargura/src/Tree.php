@@ -9,10 +9,6 @@ class Tree {
     private $root;
     private mixed $openNodes = [];
     private $contadoraGlobal = 0;
-    private $contadoraDeNodes = 1;
-    private $numberToInsert = 1;
-    private $oldSons = 9;
-    private $sonsCreated = 0;
 
     public function __construct()
     {
@@ -22,69 +18,37 @@ class Tree {
 
     public function buscaEmLargura(): void
     {
-        //$currentNode = new Node();
-        //$this->root->setNext($currentNode);
-        //$currentNode->setPrevious($this->root); 
         $allSumsEquals15 = 0;
         $contadoraName = 0;
-        for($contadoraAbertos = 0; $contadoraAbertos < /*count($this->openNodes)*/1; $contadoraAbertos++) {
-            //$this->printMatrix($this->openNodes[array_key_first($this->openNodes)]->getMatrix());
-            if($this->contadoraGlobal == 333) {
-                echo "dale";
-                die();
-            }
-            if($this->openNodes[array_key_first($this->openNodes)]->getMagicSquareCompleted()) {
+        do {
+            if($this->openNodes[0]->getMagicSquareCompleted()) {
                 break;
             }
             for($contadora = 1; $contadora < 10; $contadora++) {
                 ${"newNode" . "$contadoraName"} = new Node();
                 ${"newNode" . "$contadoraName"}->setRule($contadora);
-                ${"newNode" . "$contadoraName"}->setMatrix($this->openNodes[array_key_first($this->openNodes)]->getMatrix());
-                if($this->openNodes[array_key_first($this->openNodes)] != $this->root) {
-                    ${"newNode" . "$contadoraName"}->setNumberToInsert($this->openNodes[array_key_first($this->openNodes)]->/*getPrevious()->*/getNumberToInsert()+1);
+                ${"newNode" . "$contadoraName"}->setMatrix($this->openNodes[0]->getMatrix());
+                if($this->openNodes[0] != $this->root) {
+                    ${"newNode" . "$contadoraName"}->setNumberToInsert($this->openNodes[0]->getNumberToInsert()+1);
                 } else {
                     ${"newNode" . "$contadoraName"}->setNumberToInsert(1);
                 }
                 $this->rules(${"newNode" . "$contadoraName"});
                 $allSumsEquals15 = (${"newNode" . "$contadoraName"}->getInvalidNode()) ? 0 : $this->allSumsEquals15(${"newNode" . "$contadoraName"}->getMatrix());
                 if($allSumsEquals15) {
-                    $this->contadoraGlobal++;
-                    echo "Contadora global: " . $this->contadoraGlobal . PHP_EOL;  
-                    $this->sonsCreated++;
-                    $this->oldSons--;
                     if($allSumsEquals15 == 1) {
-                        echo $this->contadoraGlobal . PHP_EOL;
-                        echo $this->printMatrix(${"newNode" . "$contadoraName"}->getMatrix());
-                        echo "entrou" . PHP_EOL;
-                        //die();
                         ${"newNode" . "$contadoraName"}->setMagicSquareCompleted();  
-                        if(${"newNode" . "$contadoraName"}->getMagicSquareCompleted()) {
-                            echo "completo";
-                            //die();
-                        }  
                     }
-                    $this->openNodes[array_key_first($this->openNodes)]->setSon(${"newNode" . "$contadoraName"});
-                    ${"newNode" . "$contadoraName"}->setPrevious($this->openNodes[array_key_first($this->openNodes)]);
+                    $this->openNodes[0]->setSon(${"newNode" . "$contadoraName"});
+                    ${"newNode" . "$contadoraName"}->setPrevious($this->openNodes[0]);
                     $this->openNodes[] = ${"newNode" . "$contadoraName"};
                 } 
                 $contadoraName++;
             }
-            unset($this->openNodes[array_key_first($this->openNodes)]);
-            /*if($this->openNodes[array_key_first($this->openNodes)]->getMagicSquareCompleted()) {
-                break;
-            }*/
-            if($this->contadoraGlobal == 321) {
-                echo "Tamanho do array: " . count($this->openNodes) . PHP_EOL;
-                //die();
-                //echo "ENTROU NO 321" . PHP_EOL;
-                /*foreach($this->openNodes as $openNode) {
-                    $this->printMatrix($openNode->getMatrix());
-                }*/
-                //die();
-            }
-            //$this->openNodes = array_values($this->openNodes);
-            $contadoraAbertos--;
-            }
+            unset($this->openNodes[0]);
+            $this->openNodes = array_values($this->openNodes);
+            } while(true);
+        $this->printMatrix($this->openNodes[0]->getMatrix());
         echo "Quadrado mágico concluído!" . PHP_EOL;
     }
 
