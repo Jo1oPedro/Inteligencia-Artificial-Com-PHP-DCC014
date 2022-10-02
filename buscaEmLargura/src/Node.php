@@ -12,18 +12,21 @@ class Node {
     private mixed $matrix;
     private int $rule = 1;
     private int $numberToInsert = 1;
+    private mixed $sons;
+    private int $numberOfSons = 0;
 
     public function __construct()
     {
-        $this->alreadyInserted = new SplFixedArray(9);
         $this->matrix = new SplFixedArray(3);
         foreach($this->matrix as $key => $array) {
             $this->matrix[$key] = new SplFixedArray(3);
         }
+        $this->sons = new SplFixedArray(9);
     }
 
     /**
      * Define o nó anterior
+     * @param Node $node
      */
     public function setPrevious(Node &$node): void 
     {
@@ -56,7 +59,8 @@ class Node {
     }
 
     /**
-     * Constroi a matriz baseada na matriz do nó anterior;
+     * Constrói a matriz baseada na matriz do nó anterior;
+     * @param mixed $matrix
      */
     public function setMatrix(mixed $matrix): void 
     {
@@ -77,6 +81,7 @@ class Node {
 
     /**
      * Define a regra atual do nó
+     * @param int $rule
      */
     public function setRule(int $rule): void
     {
@@ -91,14 +96,48 @@ class Node {
         return $this->rule;
     }
 
+    /**
+     * Seta o número que o nó atual irá inserir
+     * @param int $numberToInsert
+     */
     public function setNumberToInsert(int $numberToInsert): void 
     {
         $this->numberToInsert = $numberToInsert;
     }
 
+    /**
+     * Recupera o número que o nó atual irá inserir
+     */
     public function getNumberToInsert(): int 
     {
         return $this->numberToInsert;
+    }
+
+    /**
+     * Seta os filhos do nó pai
+     * @param Node $nodeSon
+     */
+    public function setSon(Node $nodeSon): void 
+    {
+        $this->sons[$this->numberOfSons] = $nodeSon;
+        $this->numberOfSons++;
+    } 
+
+    /**
+     * Retorna o filho especificado do nó atual
+     * @param int $position
+     */
+    public function getSon(int $position): ?Node
+    {
+        return $this->sons[$position];
+    }
+
+    /**
+     * Retorna o número de filhos atuais no nó
+     */
+    public function getNumberOfSons(): int
+    {
+        return $this->numberOfSons;
     }
 
 }

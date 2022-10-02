@@ -14,7 +14,15 @@ class Tree {
 
     public function buscaEmLargura(): void
     {
-        
+        $currentNode = new Node();
+        $this->root->setNext($currentNode);
+        $currentNode->setPrevious($this->root); 
+        $allSumsEquals15 = 0;
+        $contadora = 0;
+        do {
+
+        } while(($allSumsEquals15 == 2) || (!$allSumsEquals15));
+        echo "Quadrado mágico concluído!" . PHP_EOL;
     }
 
     private function allSumsEquals15(mixed $matrix): int 
