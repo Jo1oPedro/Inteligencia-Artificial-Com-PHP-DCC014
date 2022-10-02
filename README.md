@@ -24,4 +24,4 @@ O objetivo dos algoritmos aqui presentes é solucionar o problema do `quadrado m
 2. Rode o comando php "nome da pasta".php, como por exemplo php backtracking.php; 
 
 ## Tempo de execução de cada algoritmo
-1. Backtracking: Apresentou um tempo de execução de aproximadamente `0.02 segundos`. Link para o print: `https://prnt.sc/3b_LsU0FK0bN`
+1. Backtracking: Apresentou um tempo de execução de aproximadamente `0.02 segundos`. Link para o print: https://prnt.sc/3b_LsU0FK0bN
