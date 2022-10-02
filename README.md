@@ -1,5 +1,3 @@
-"# Inteligencia-Artificial-Com-PHP-DCC014" 
-
 # Trabalho de Inteligência Artificial DCC014 - UFJF
 
 | **Sumário** |
