@@ -30,7 +30,7 @@ class Node {
      * Define o nó anterior
      * @param Node $node
      */
-    public function setPrevious(Node &$node): void 
+    public function setPrevious(Node $node): void 
     {
         $this->previous = $node;
     }
@@ -47,7 +47,7 @@ class Node {
      * Define o proximo nó
      * @param null|Node $node
      */
-    public function setNext(Node &$node = null): void 
+    public function setNext(Node $node = null): void 
     {
         $this->next = $node;
     }
@@ -147,7 +147,7 @@ class Node {
      */
     public function setMagicSquareCompleted(): void 
     {
-        $this->setMagicSquareCompleted = true;
+        $this->magicSquareCompleted = true;
     }
 
     /**
