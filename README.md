@@ -13,7 +13,7 @@
 Objetivos do repositorio: O repositório tem como objetivo armazenar os códigos feitos para a disciplina de inteligência artificil DCC014 da UFJF;
 
 ## Problema proposto para execução dos algoritmos
-O objetivo dos algoritmos aqui presentes é solucionar o problema do quadrado mágico, no qual é necessário que a soma de todas as linhas, colunas e diagonais(principal e secundaria) sejam iguais a 15. Link para o assunto https://pt.wikipedia.org/wiki/Quadrado_m%C3%A1gico;
+O objetivo dos algoritmos aqui presentes é solucionar o problema do `quadrado mágico`, no qual é necessário que a soma de todas as linhas, colunas e diagonais(principal e secundaria) `sejam iguais a 15`. Link para o assunto https://pt.wikipedia.org/wiki/Quadrado_m%C3%A1gico;
 
 ## Algoritmos atualmente presentes nesse repositório
 1. `Backtracking`: Algoritmo que representa um refinamento da busca por força bruta, em que múltiplas soluções podem ser eliminadas sem serem explicitamente examinadas;
