@@ -2,26 +2,81 @@
 
 namespace src;
 
+use SplFixedArray;
+
 class Tree {
 
     private $root;
-    //private $contadoraGlobal = 0;
+    private mixed $openNodes = [];
+    private $contadoraGlobal = 0;
+    private $contadoraDeNodes = 1;
+    private $numberToInsert = 1;
+    private $oldSons = 9;
+    private $sonsCreated = 0;
 
     public function __construct()
     {
         $this->root = new Node();
+        $this->openNodes[0] = $this->root;
     }
 
     public function buscaEmLargura(): void
     {
-        $currentNode = new Node();
-        $this->root->setNext($currentNode);
-        $currentNode->setPrevious($this->root); 
+        //$currentNode = new Node();
+        //$this->root->setNext($currentNode);
+        //$currentNode->setPrevious($this->root); 
         $allSumsEquals15 = 0;
-        $contadora = 0;
-        do {
-
-        } while(($allSumsEquals15 == 2) || (!$allSumsEquals15));
+        $contadoraName = 0;
+        //do {    
+            for($contadoraAbertos = 0; $contadoraAbertos < /*count($this->openNodes)*/1; $contadoraAbertos++) {
+                if($this->openNodes[0]->getMagicSquareCompleted()) {
+                    break;
+                }
+                $this->contadoraGlobal++;
+                for($contadora = 1; $contadora < 10; $contadora++) {
+                    ${"newNode" . "$contadoraName"} = new Node();
+                    ${"newNode" . "$contadoraName"}->setRule($contadora);
+                    echo "Regra: " . ${"newNode" . "$contadoraName"}->getRule() . PHP_EOL;
+                    ${"newNode" . "$contadoraName"}->setMatrix($this->openNodes[0]->getMatrix());
+                    ${"newNode" . "$contadoraName"}->setNumberToInsert(/*$this->numberToInsert*/$this->openNodes[0]->getNumberToInsert()+1);
+                    $this->rules(${"newNode" . "$contadoraName"});
+                    if($this->contadoraGlobal == 2) {
+                        $this->printMatrix(${"newNode" . "$contadoraName"}->getMatrix());
+                    }
+                    $allSumsEquals15 = (${"newNode" . "$contadoraName"}->getInvalidNode()) ? 0 : $this->allSumsEquals15(${"newNode" . "$contadoraName"}->getMatrix());
+                    //$allSumsEquals15 = $this->allSumsEquals15(${"newNode" . "$contadoraName"}->getMatrix());
+                    if($allSumsEquals15) {
+                        $this->sonsCreated++;
+                        $this->oldSons--;
+                        if($allSumsEquals15 == 1) {
+                            ${"newNode" . "$contadoraName"}->setMagicSquareCompleted();    
+                        }
+                        $this->openNodes[/*$this->contadoraDeNodes*//*$contadoraAbertos*/0]->setSon(${"newNode" . "$contadoraName"});
+                        ${"newNode" . "$contadoraName"}->setPrevious($this->openNodes[/*$this->contadoraDeNodes*//*$contadoraAbertos*/0]);
+                        //$this->contadoraDeNodes++;
+                        $this->openNodes[/*$this->contadoraDeNodes*//*count($this->openNodes)*//*$contadoraAbertos+1*/] = ${"newNode" . "$contadoraName"};
+                    } 
+                    $contadoraName++;
+                }
+                unset($this->openNodes[0]);
+                $this->openNodes = array_values($this->openNodes);
+                if($this->contadoraGlobal == 10) {
+                    //die();
+                    /*for($dale = 0; $dale < 9; $dale++) {
+                        $this->printMatrix($this->openNodes[0]->getSon($dale)->getMatrix());
+                    }*/
+                    echo count($this->openNodes);
+                    echo "INDOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" . PHP_EOL . PHP_EOL;
+                    //die();
+                    foreach($this->openNodes as $openNode) {
+                        $this->printMatrix($openNode->getMatrix());
+                    }
+                    die();
+                }
+                $contadoraAbertos--;
+                //$this->numberToInsert++;
+            }
+        //} while(($allSumsEquals15 == 2) || (!$allSumsEquals15));
         echo "Quadrado mágico concluído!" . PHP_EOL;
     }
 
@@ -117,6 +172,7 @@ class Tree {
     {
         $contadora = 0;
         $numberOfElementsDiagonal = 0;
+        $return2Flag = false;
         foreach($matrix as $key => $array) {
             if($matrix[$key][$key]) {
                 $numberOfElementsDiagonal++;
@@ -129,11 +185,13 @@ class Tree {
                     return 0;
                 }
             }
-            return 2;
+            $return2Flag = true;
+        } else {
+            if($contadora != 15) { 
+                return 0;
+            }
         }
-        if($contadora != 15) {
-            return 0;
-        }
+
         $numberOfElementsDiagonal = 0;
         $contadora = 0;
         $column = 2;
@@ -151,12 +209,14 @@ class Tree {
                     return 0;
                 }
             }
-            return 2;
+            //return 2;
+            $return2Flag = true;
+        } else {
+            if($contadora != 15) { 
+                return 0;
+            }
         }
-        if($contadora != 15) {
-            return 0;
-        }
-        return 1;
+        return ($return2Flag) ? 2 : 1;
     }
 
     public function rules(Node &$currentNode): void 
@@ -165,73 +225,65 @@ class Tree {
             case 1:
                 if(!$currentNode->getMatrix()[0][0]) {
                     $currentNode->getMatrix()[0][0] = $currentNode->getNumberToInsert();
-                } else {
-                    $currentNode->setRule($currentNode->getRule()+1);
-                    $this->rules($currentNode);
+                    return;
                 }
+                $currentNode->setInvalidNode();
                 break;
             case 2:
                 if(!$currentNode->getMatrix()[0][1]) {
                     $currentNode->getMatrix()[0][1] = $currentNode->getNumberToInsert();
-                } else {
-                    $currentNode->setRule($currentNode->getRule()+1);
-                    $this->rules($currentNode);
+                    return;
                 }
+                $currentNode->setInvalidNode();
                 break;
             case 3:
                 if(!$currentNode->getMatrix()[0][2]) {
                     $currentNode->getMatrix()[0][2] = $currentNode->getNumberToInsert();
-                } else {
-                    $currentNode->setRule($currentNode->getRule()+1);
-                    $this->rules($currentNode);
+                    return;
                 }
+                $currentNode->setInvalidNode();
                 break;
             case 4:
                 if(!$currentNode->getMatrix()[1][0]) {
                     $currentNode->getMatrix()[1][0] = $currentNode->getNumberToInsert();
-                } else {
-                    $currentNode->setRule($currentNode->getRule()+1);
-                    $this->rules($currentNode);
+                    return;
                 }
+                $currentNode->setInvalidNode();
                 break;    
             case 5:
                 if(!$currentNode->getMatrix()[1][1]) {
                     $currentNode->getMatrix()[1][1] = $currentNode->getNumberToInsert();
-                } else {
-                    $currentNode->setRule($currentNode->getRule()+1);
-                    $this->rules($currentNode);
+                    return;
                 }
+                $currentNode->setInvalidNode();
                 break;
             case 6:
                 if(!$currentNode->getMatrix()[1][2]) {
                     $currentNode->getMatrix()[1][2] = $currentNode->getNumberToInsert();
-                } else {
-                    $currentNode->setRule($currentNode->getRule()+1);
-                    $this->rules($currentNode);
+                    return;
                 }
+                $currentNode->setInvalidNode();
                 break;
             case 7:
                 if(!$currentNode->getMatrix()[2][0]) {
                     $currentNode->getMatrix()[2][0] = $currentNode->getNumberToInsert();
-                } else {
-                    $currentNode->setRule($currentNode->getRule()+1);
-                    $this->rules($currentNode);
+                    return;
                 }
+                $currentNode->setInvalidNode();
                 break;
             case 8:
                 if(!$currentNode->getMatrix()[2][1]) {
                     $currentNode->getMatrix()[2][1] = $currentNode->getNumberToInsert();
-                } else {
-                    $currentNode->setRule($currentNode->getRule()+1);
-                    $this->rules($currentNode);
+                    return;
                 }
+                $currentNode->setInvalidNode();
                 break;
             case 9:
                 if(!$currentNode->getMatrix()[2][2]) {
                     $currentNode->getMatrix()[2][2] = $currentNode->getNumberToInsert();
-                } else {
-                    $currentNode->setRule($currentNode->getRule()+1);
+                    return;
                 }
+                $currentNode->setInvalidNode();
                 break;
         }
     }

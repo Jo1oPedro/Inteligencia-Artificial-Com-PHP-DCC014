@@ -14,6 +14,8 @@ class Node {
     private int $numberToInsert = 1;
     private mixed $sons;
     private int $numberOfSons = 0;
+    private bool $magicSquareCompleted = false;
+    private bool $invalidNode = false;
 
     public function __construct()
     {
@@ -139,5 +141,35 @@ class Node {
     {
         return $this->numberOfSons;
     }
+    
+    /**
+     * Seta o quadrado mágico como completo
+     */
+    public function setMagicSquareCompleted(): void 
+    {
+        $this->setMagicSquareCompleted = true;
+    }
+
+    /**
+     * Retorna se o quadrado mágico está completo
+     */
+    public function getMagicSquareCompleted(): bool 
+    {
+        return $this->magicSquareCompleted;
+    }
+
+    /**
+     * Seta o node como invalido.
+     */
+    public function setInvalidNode(): void 
+    {   
+        $this->invalidNode = true;
+    }
+
+    public function getInvalidNode(): bool
+    {
+        return $this->invalidNode;
+    }
+
 
 }
