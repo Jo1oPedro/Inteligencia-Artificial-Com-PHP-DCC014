@@ -6,6 +6,7 @@
 | [Problema proposto para execução dos algoritmos](#problema-proposto-para-execução-dos-algoritmos) |
 | [Problema a ser solucionado](#algoritmos-atualmente-presentes-nesse-repositório) |
 | [Como executar os algoritmos ](#como-executar-o-projeto-inicial) |
+| [Tempo de execução de cada algoritmo](#tempo-de-execução-de-cada-algoritmo) |
 
 ## Objetivos do repositório
 O repositório tem como objetivo armazenar os códigos feitos para a disciplina de inteligência artificil DCC014 da UFJF;
@@ -22,3 +23,5 @@ O objetivo dos algoritmos aqui presentes é solucionar o problema do `quadrado m
 1. Abra o Terminal na Pasta do algoritmo;
 2. Rode o comando php "nome da pasta".php, como por exemplo php backtracking.php; 
 
+## Tempo de execução de cada algoritmo
+1. Backtracking: Apresentou um tempo de execução de aproximadamente `0.02 segundos`. Link para o print: `https://prnt.sc/3b_LsU0FK0bN`
