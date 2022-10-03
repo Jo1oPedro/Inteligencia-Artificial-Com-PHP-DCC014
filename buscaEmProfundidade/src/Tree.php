@@ -16,9 +16,45 @@ class Tree {
         $this->openNodes[0] = $this->root;
     }
 
-    public function buscaEmLargura(): void
+    public function buscaEmProfundidade(): void
     {
-        
+        $allSumsEquals15 = 0;
+        $contadoraName = 0;
+        $currentNode = '';
+        do {
+            $lastKey = array_key_last($this->openNodes);
+            for($contadora = 1; $contadora < 10; $contadora++) {
+                ${"newNode" . "$contadoraName"} = new Node();
+                ${"newNode" . "$contadoraName"}->setRule($contadora);
+                ${"newNode" . "$contadoraName"}->setMatrix($this->openNodes[$lastKey]->getMatrix());
+                if($this->openNodes[$lastKey] != $this->root) {
+                    ${"newNode" . "$contadoraName"}->setNumberToInsert($this->openNodes[$lastKey]->getNumberToInsert()+1);
+                } else {
+                    ${"newNode" . "$contadoraName"}->setNumberToInsert(1);
+                }
+                $this->rules(${"newNode" . "$contadoraName"});
+                $allSumsEquals15 = (${"newNode" . "$contadoraName"}->getInvalidNode()) ? 0 : $this->allSumsEquals15(${"newNode" . "$contadoraName"}->getMatrix());
+                if($allSumsEquals15) {
+                    if($allSumsEquals15 == 1) {
+                        $this->openNodes[$lastKey]->setSon(${"newNode" . "$contadoraName"});
+                        ${"newNode" . "$contadoraName"}->setPrevious($this->openNodes[$lastKey]);
+                        $this->openNodes[] = ${"newNode" . "$contadoraName"};
+                        break; 
+                    }
+                    $this->openNodes[$lastKey]->setSon(${"newNode" . "$contadoraName"});
+                    ${"newNode" . "$contadoraName"}->setPrevious($this->openNodes[$lastKey]);
+                    $this->openNodes[] = ${"newNode" . "$contadoraName"};
+                } 
+                $contadoraName++;
+            }
+            if($allSumsEquals15 == 1) {
+                break;
+            } 
+            unset($this->openNodes[$lastKey]);
+            //$this->openNodes = array_values($this->openNodes);
+            } while(!($allSumsEquals15 == 1));
+        $this->printMatrix($this->openNodes[$lastKey+1]->getMatrix());
+        echo "Quadrado mágico concluído!" . PHP_EOL;
     }
 
     private function allSumsEquals15(mixed $matrix): int 

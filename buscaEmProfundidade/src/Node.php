@@ -14,7 +14,7 @@ class Node {
     private int $numberToInsert = 1;
     private mixed $sons;
     private int $numberOfSons = 0;
-    private bool $magicSquareCompleted = false;
+    private int $lastSonCaught = 0; 
     private bool $invalidNode = false;
 
     public function __construct()
@@ -134,28 +134,18 @@ class Node {
         return $this->sons[$position];
     }
 
+    public function getLastSon(): ?Node
+    {
+        return $this->sons[$this->lastSonCaught];
+        $this->lastSonCaught++;
+    }
+
     /**
      * Retorna o número de filhos atuais no nó
      */
     public function getNumberOfSons(): int
     {
         return $this->numberOfSons;
-    }
-    
-    /**
-     * Seta o quadrado mágico como completo
-     */
-    public function setMagicSquareCompleted(): void 
-    {
-        $this->magicSquareCompleted = true;
-    }
-
-    /**
-     * Retorna se o quadrado mágico está completo
-     */
-    public function getMagicSquareCompleted(): bool 
-    {
-        return $this->magicSquareCompleted;
     }
 
     /**
