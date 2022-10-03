@@ -2,13 +2,10 @@
 
 namespace src;
 
-use SplFixedArray;
-
 class Tree {
 
     private $root;
     private mixed $openNodes = [];
-    private $contadoraGlobal = 0;
 
     public function __construct()
     {
@@ -20,7 +17,6 @@ class Tree {
     {
         $allSumsEquals15 = 0;
         $contadoraName = 0;
-        $currentNode = '';
         do {
             $lastKey = array_key_last($this->openNodes);
             for($contadora = 1; $contadora < 10; $contadora++) {
@@ -51,7 +47,6 @@ class Tree {
                 break;
             } 
             unset($this->openNodes[$lastKey]);
-            //$this->openNodes = array_values($this->openNodes);
             } while(!($allSumsEquals15 == 1));
         $this->printMatrix($this->openNodes[$lastKey+1]->getMatrix());
         echo "Quadrado mágico concluído!" . PHP_EOL;
