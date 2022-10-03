@@ -6,7 +6,7 @@
 | [Problema proposto para execução dos algoritmos](#problema-proposto-para-execução-dos-algoritmos) |
 | [Problema a ser solucionado](#algoritmos-atualmente-presentes-nesse-repositório) |
 | [Como executar os algoritmos ](#como-executar-o-projeto-inicial) |
-| (Processador)(#processador) |
+| [Processador](#processador) |
 | [Tempo de execução de cada algoritmo](#tempo-de-execução-de-cada-algoritmo) |
 
 ## Objetivos do repositório
