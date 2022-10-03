@@ -17,6 +17,7 @@ O objetivo dos algoritmos aqui presentes é solucionar o problema do `quadrado m
 ## Algoritmos atualmente presentes nesse repositório
 1. `Backtracking`: Algoritmo que representa um refinamento da busca por força bruta, em que múltiplas soluções podem ser eliminadas sem serem explicitamente examinadas;
 2. `Busca em largura`: Busca em largura é um algoritmo de busca em grafos utilizado para realizar uma busca ou travessia num grafo e estrutura de dados do tipo árvore;
+3. `Busca em profundidade`: busca em profundidade é um algoritmo usado para realizar uma busca ou travessia numa árvore, estrutura de árvore ou grafo.
 
 ## Como executar o projeto inicial
 \* É necessário ter o _PHP 8.0+_
@@ -26,3 +27,4 @@ O objetivo dos algoritmos aqui presentes é solucionar o problema do `quadrado m
 ## Tempo de execução de cada algoritmo
 1. Backtracking: Apresentou um tempo de execução de aproximadamente `0.02 segundos`. Link para o print: https://prnt.sc/3b_LsU0FK0bN
 2. Busca em Largura: Apresentou um tempo de execução de aproximadamente `0.1 segundos`. Link para o print: https://prnt.sc/X_2KzkTeRxyk
+3. Busca em Profundidade: 
