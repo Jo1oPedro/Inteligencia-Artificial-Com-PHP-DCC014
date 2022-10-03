@@ -21,10 +21,10 @@ O objetivo dos algoritmos aqui presentes é solucionar o problema do `quadrado m
 
 ## Como executar o projeto inicial
 \* É necessário ter o _PHP 8.0+_
-1. Abra o Terminal na Pasta do algoritmo;
+1. Abra o terminal na pasta do algoritmo;
 2. Rode o comando php "nome da pasta".php, como por exemplo php backtracking.php; 
 
 ## Tempo de execução de cada algoritmo
 1. Backtracking: Apresentou um tempo de execução de aproximadamente `0.02 segundos`. Link para o print: https://prnt.sc/3b_LsU0FK0bN
 2. Busca em Largura: Apresentou um tempo de execução de aproximadamente `0.1 segundos`. Link para o print: https://prnt.sc/X_2KzkTeRxyk
-3. Busca em Profundidade: 
+3. Busca em Profundidade: Apresentou um tempo de execução de aproximadamente `0.03 segundos`. Link para o print: https://prnt.sc/M856A5QU3yc4
