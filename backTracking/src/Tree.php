@@ -23,8 +23,6 @@ class Tree {
         do {
             
             $this->rules($currentNode);
-            //$this->contadoraGlobal = $contadora;
-            //$this->printMatrix($currentNode->getMatrix());
             $allSumsEquals15 = $this->allSumsEquals15($currentNode->getMatrix());
             if(($allSumsEquals15 == 2) || (!$allSumsEquals15)) {
                 ${"newNode" . "$contadora"} = new Node();
@@ -52,7 +50,8 @@ class Tree {
             }
             $contadora++;
         } while(($allSumsEquals15 == 2) || (!$allSumsEquals15));
-        $this->printMatrix($currentNode->getMatrix());
+        //$this->printMatrix($currentNode->getMatrix());
+        $this->printAllNodes($this->root->getNext());
         echo "Quadrado mágico concluido!" . PHP_EOL;
     }
 
@@ -282,7 +281,7 @@ class Tree {
         return $contadora;
     }
 
-    private function printMatrix(mixed $matrix) 
+    private function printMatrix(mixed $matrix): void 
     {
         foreach($matrix as $key => $array) {
             foreach($array as $key2 => $element) {
@@ -291,6 +290,14 @@ class Tree {
             echo PHP_EOL;
         }
         echo PHP_EOL;
+    }
+
+    public function printAllNodes(Node $node): void
+    {
+        while($node/*->getNext()*/ != null) {
+            $this->printMatrix($node->getMatrix());
+            $node = $node->getNext();
+        }
     }
 
 }

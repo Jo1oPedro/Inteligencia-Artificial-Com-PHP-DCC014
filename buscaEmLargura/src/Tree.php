@@ -8,11 +8,13 @@ class Tree {
 
     private $root;
     private mixed $openNodes = [];
+    private mixed $closedNode = [];
     private $contadoraGlobal = 0;
 
     public function __construct()
     {
         $this->root = new Node();
+        // Lista de abertos
         $this->openNodes[0] = $this->root;
     }
 
@@ -20,35 +22,43 @@ class Tree {
     {
         $allSumsEquals15 = 0;
         $contadoraName = 0;
+        $numberOfTheNodeToGet = 0;
         do {
-            if($this->openNodes[0]->getMagicSquareCompleted()) {
+            if($this->openNodes[$numberOfTheNodeToGet]->getMagicSquareCompleted()) {
                 break;
             }
+            // Busca em largura cria todos os filhos de um nó, logo vai ter todas as regras
             for($contadora = 1; $contadora < 10; $contadora++) {
                 ${"newNode" . "$contadoraName"} = new Node();
                 ${"newNode" . "$contadoraName"}->setRule($contadora);
-                ${"newNode" . "$contadoraName"}->setMatrix($this->openNodes[0]->getMatrix());
-                if($this->openNodes[0] != $this->root) {
-                    ${"newNode" . "$contadoraName"}->setNumberToInsert($this->openNodes[0]->getNumberToInsert()+1);
+                // Seta a matriz do nó atual como sendo a matriz do nó pai
+                // O nó pai é sempre o primeiro da fila(nó atual)
+                ${"newNode" . "$contadoraName"}->setMatrix($this->openNodes[$numberOfTheNodeToGet]->getMatrix());
+                if($this->openNodes[$numberOfTheNodeToGet] != $this->root) {
+                    // Caso não seja o primeiro da lista então já sei que o número a ser inserido na regra é +1 do nó pai
+                    ${"newNode" . "$contadoraName"}->setNumberToInsert($this->openNodes[$numberOfTheNodeToGet]->getNumberToInsert()+1);
                 } else {
                     ${"newNode" . "$contadoraName"}->setNumberToInsert(1);
                 }
+                // Metodo responsável por inserir o número baseado na regra do nó e do número a ser inserido setNumberToInsert
                 $this->rules(${"newNode" . "$contadoraName"});
                 $allSumsEquals15 = (${"newNode" . "$contadoraName"}->getInvalidNode()) ? 0 : $this->allSumsEquals15(${"newNode" . "$contadoraName"}->getMatrix());
                 if($allSumsEquals15) {
                     if($allSumsEquals15 == 1) {
                         ${"newNode" . "$contadoraName"}->setMagicSquareCompleted();  
                     }
-                    $this->openNodes[0]->setSon(${"newNode" . "$contadoraName"});
-                    ${"newNode" . "$contadoraName"}->setPrevious($this->openNodes[0]);
+                    $this->openNodes[$numberOfTheNodeToGet]->setSon(${"newNode" . "$contadoraName"});
+                    ${"newNode" . "$contadoraName"}->setPrevious($this->openNodes[$numberOfTheNodeToGet]);
                     $this->openNodes[] = ${"newNode" . "$contadoraName"};
                 } 
                 $contadoraName++;
             }
-            unset($this->openNodes[0]);
-            $this->openNodes = array_values($this->openNodes);
+            $numberOfTheNodeToGet++;
+            $this->closedNode[] = $this->openNodes[$numberOfTheNodeToGet];
             } while(true);
-        $this->printMatrix($this->openNodes[0]->getMatrix());
+        array_pop($this->closedNode);
+        $this->printMatrix($this->closedNode[count($this->closedNode) - 1]->getMatrix());
+        $this->printMatrix($this->openNodes[$numberOfTheNodeToGet]->getMatrix());
         echo "Quadrado mágico concluído!" . PHP_EOL;
     }
 
