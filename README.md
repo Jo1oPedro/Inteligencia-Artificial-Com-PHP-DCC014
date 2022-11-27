@@ -6,6 +6,7 @@
 | [Problema proposto para execução dos algoritmos](#problema-proposto-para-execução-dos-algoritmos) |
 | [Problema a ser solucionado](#algoritmos-atualmente-presentes-nesse-repositório) |
 | [Como executar os algoritmos ](#como-executar-o-projeto-inicial) |
+| [Processador](#processador) |
 | [Tempo de execução de cada algoritmo](#tempo-de-execução-de-cada-algoritmo) |
 
 ## Objetivos do repositório
@@ -23,6 +24,9 @@ O objetivo dos algoritmos aqui presentes é solucionar o problema do `quadrado m
 \* É necessário ter o _PHP 8.0+_
 1. Abra o terminal na pasta do algoritmo;
 2. Rode o comando php "nome da pasta".php, como por exemplo php backtracking.php; 
+
+## Processador
+Intel(R) Xeon(R) CPU  X3440  @ 2.53GHz   2.53 GHz
 
 ## Tempo de execução de cada algoritmo
 1. Backtracking: Apresentou um tempo de execução de aproximadamente `0.02 segundos`. Link para o print: https://prnt.sc/3b_LsU0FK0bN
